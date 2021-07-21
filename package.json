@@ -1,0 +1,25 @@
+{
+  "name": "week12-hw",
+  "version": "1.0.0",
+  "description": "employee management system",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drewml08/Week12-hw.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/drewml08/Week12-hw/issues"
+  },
+  "homepage": "https://github.com/drewml08/Week12-hw#readme",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^8.1.2",
+    "mysql": "^2.18.1"
+  }
+}
