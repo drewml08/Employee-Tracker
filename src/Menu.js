@@ -25,16 +25,18 @@ class Menu {
 
     async mainMenu() {
         while (!this.done) {
-            console.log('WTF');
             var answer = await this.mainPrompt();
             switch (answer) {
                 case "View All Employees":
+                    this.viewAllEmployees();
                     break;
 
                 case "Add Employee":
+                    this.addEmployee();
                     break;
 
-                case "Update Employee Role":    
+                case "Update Employee Role":
+                    this.updateRole();    
                     break;
                    
                 case "Exit":
@@ -42,6 +44,17 @@ class Menu {
                     break;    
             }
         }
+    }
+    viewAllEmployees() {
+
+    }
+
+    addEmployee() {
+
+    }
+    
+    updateRole() {
+
     }
 }
 
