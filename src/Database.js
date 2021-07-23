@@ -32,6 +32,24 @@ class Database {
         });
     }
 
+    getDepartmentChoices() {
+        return new Promise ( (resolve, reject) => {
+            this.connection.query('SELECT id, name FROM department', (err, res) => {
+                if (err) throw err;
+
+                var choices = [];   
+
+                for (var i = 0; i < res.length; i++) {
+                    choices.push({
+                        name: res[i].name, 
+                        value: res[i].id,
+                    });
+                } 
+                resolve(choices);
+            })
+        });
+    }
+
     getEmployeeChoices() {
         return new Promise ( (resolve, reject) => {
             this.connection.query('SELECT id, first_name, last_name FROM employee', (err, res) => {
@@ -110,5 +128,39 @@ class Database {
             })
         });
     }  
+
+    createRole(role) {
+        return new Promise ( (resolve, reject) => {
+            this.connection.query(
+                'INSERT INTO role SET ?',
+                {
+                    title: role.title,
+                    salary: role.salary,
+                    department_id: role.department,
+                    
+                },
+                (err, res) => {
+                    if (err) throw err;
+                    console.log(`${res.affectedRows} role created!\n`);
+                    resolve();
+            });
+        });
+    }
+
+    createDepartment(department) {
+        return new Promise ( (resolve, reject) => {
+            this.connection.query(
+                'INSERT INTO department SET ?',
+                {
+                    name: department.name,
+                    
+                },
+                (err, res) => {
+                    if (err) throw err;
+                    console.log(`${res.affectedRows} department created!\n`);
+                    resolve();
+            });
+        });
+    }
 }
 module.exports = Database;
