@@ -91,6 +91,24 @@ class Database {
             })
         });
     }
-}
 
+
+    getRoles() {
+        return new Promise ( (resolve, reject) => {
+            this.connection.query('SELECT role.id, title, salary, department.name AS department FROM role JOIN department ON (role.department_id = department.id)', (err, res) => {
+                if (err) throw err;
+                resolve(res);
+            })
+        });
+    }
+    
+    getDepartments() {
+        return new Promise ( (resolve, reject) => {
+            this.connection.query('SELECT * FROM department', (err, res) => {
+                if (err) throw err;
+                resolve(res);
+            })
+        });
+    }  
+}
 module.exports = Database;

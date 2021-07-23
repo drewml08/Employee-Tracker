@@ -14,8 +14,9 @@ class Menu {
             {
                 type: 'list', 
                 message: 'What would you like to do?',
-                choices: ['View All Employees', 'Add Employee', 'Update Employee Role', 'Exit'],
+                choices: ['View All Employees', 'Add Employee', 'Update Employee Role', new inquirer.Separator(), 'View Departments', 'Add Departments', new inquirer.Separator(), 'View Roles', 'Add Roles', new inquirer.Separator(), 'Exit'],
                 name: 'option',
+                loop: false,
             }
         ]
         return new Promise ( (resolve, reject) => {
@@ -40,7 +41,12 @@ class Menu {
                 case "Update Employee Role":
                     await this.updateRole();    
                     break;
-                   
+                case "View Departments":
+                    await this.viewDepartments();
+                    break;
+                case "View Roles":
+                    await this.viewRoles();    
+                    break;   
                 case "Exit":
                     this.done = true;
                     break;    
@@ -136,6 +142,16 @@ class Menu {
             resolve();
         });
 
+    }
+
+    async viewRoles() {
+        const roles = await this.db.getRoles();
+        console.table(roles);
+    }
+
+    async viewDepartments() {
+        const departments = await this.db.getDepartments();
+        console.table(departments);
     }
 }
 
