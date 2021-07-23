@@ -82,6 +82,15 @@ class Database {
             });
         });
     }
+
+    getAllEmployees() {
+        return new Promise ( (resolve, reject) => {
+            this.connection.query('SELECT employee.id, employee.first_name, employee.last_name, title, salary, department.name AS department, CONCAT (mgr.first_name, " " , mgr.last_name) AS manager FROM employee JOIN role ON (employee.role_id = role.id) JOIN department ON (role.department_id = department.id) LEFT JOIN employee mgr ON (employee.manager_id = mgr.id)', (err, res) => {
+                if (err) throw err;
+                resolve(res);
+            })
+        });
+    }
 }
 
 module.exports = Database;

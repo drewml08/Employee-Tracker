@@ -1,5 +1,6 @@
 const inquirer = require('inquirer');
 const Database = require('./Database');
+const table = require('console.table');
 
 
 class Menu {
@@ -29,11 +30,11 @@ class Menu {
             var answer = await this.mainPrompt();
             switch (answer) {
                 case "View All Employees":
-                    this.viewAllEmployees();
+                    await this.viewAllEmployees();
                     break;
 
                 case "Add Employee":
-                   await this.addEmployee();
+                    await this.addEmployee();
                     break;
 
                 case "Update Employee Role":
@@ -46,9 +47,11 @@ class Menu {
             }
         }
     }
-    viewAllEmployees() {
-
+    async viewAllEmployees() {
+        const employees = await this.db.getAllEmployees();
+        console.table(employees);
     }
+
     async addEmployeePrompt() {
         const roles = await this.db.getRoleChoices();
         var people = await this.db.getEmployeeChoices();
