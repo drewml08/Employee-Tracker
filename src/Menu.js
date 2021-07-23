@@ -37,7 +37,7 @@ class Menu {
                     break;
 
                 case "Update Employee Role":
-                    this.updateRole();    
+                    await this.updateRole();    
                     break;
                    
                 case "Exit":
@@ -97,8 +97,41 @@ class Menu {
             resolve();
         });
     }
-    
+    async editRolePrompt() {
+        const roles = await this.db.getRoleChoices();
+        const people = await this.db.getEmployeeChoices();
+       
+        const question = [
+
+            {
+                type: 'list', 
+                message: 'Which employee\'s role would you like to update?',
+                choices: people,
+                name: 'employee_id',
+            },
+
+            {
+                type: 'list', 
+                message: 'What role should be assigned to this employee?',
+                choices: roles,
+                name: 'role',
+            },
+
+           
+        ]
+        return new Promise ( (resolve, reject) => {
+            inquirer.prompt(question).then((response) => {
+                resolve(response);
+            });
+        });
+    }
+
     updateRole() {
+        return new Promise (async (resolve, reject) => {
+            const update = await this.editRolePrompt();
+            await this.db.updateEmployeeRole(update);
+            resolve();
+        });
 
     }
 }

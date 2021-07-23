@@ -66,6 +66,22 @@ class Database {
             });
         });
     }
+
+    updateEmployeeRole(update) {
+        return new Promise ( (resolve, reject) => {
+            this.connection.query(
+                'UPDATE employee SET ? WHERE ?',
+                [
+                    {role_id: update.role,},
+                    {id: update.employee_id},
+                ],
+                (err, res) => {
+                    if (err) throw err;
+                    console.log(`${res.affectedRows} employee modified!\n`);
+                    resolve();
+            });
+        });
+    }
 }
 
 module.exports = Database;
